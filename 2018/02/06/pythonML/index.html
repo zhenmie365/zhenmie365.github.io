@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,machineLearning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="定义  笔记">
+<meta name="keywords" content="python,machineLearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python ML">
+<meta property="og:url" content="http://yoursite.com/2018/02/06/pythonML/index.html">
+<meta property="og:site_name" content="Zhenmie&#39;s blog">
+<meta property="og:description" content="定义  笔记">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/perceptron.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/perceptron_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/perceptron_error.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/Selection_001.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/Adaline.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/weight.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/standardization.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/Adaline_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/Adaline_error.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/SGD.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/AdalineSGD_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML/AdalineSGD_err.png">
+<meta property="og:updated_time" content="2018-02-06T07:19:15.707Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python ML">
+<meta name="twitter:description" content="定义  笔记">
+<meta name="twitter:image" content="http://yoursite.com/images/post/pythonML/perceptron.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/06/pythonML/"/>
+
+
+
+
+
+  <title>python ML | Zhenmie's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhenmie's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">跑啊跑啊,为了追上那个曾经被寄予厚望的自己</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/06/pythonML/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Green Zhenmie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar/74766_729230_992060.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhenmie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python ML</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-06T15:19:15+08:00">
+                2018-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/" itemprop="url" rel="index">
+                    <span itemprop="name">working</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/python/machineLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">machineLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><blockquote>
+<p><python machine="" learning=""> 笔记</python></p>
+</blockquote>
+<a id="more"></a>
+<h1 id="感知器-Perceptron-和Adaline"><a href="#感知器-Perceptron-和Adaline" class="headerlink" title="感知器(Perceptron)和Adaline"></a>感知器(Perceptron)和Adaline</h1><p>这里只提供fit相关联的方法,是对于几种常见的算法的对比</p>
+<h2 id="Perceptron"><a href="#Perceptron" class="headerlink" title="Perceptron:"></a>Perceptron:</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line"></span><br><span class="line">    self.w_ = np.zeros(<span class="number">1</span> + X.shape[<span class="number">1</span>])</span><br><span class="line">    self.errors_ = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> range(self.n_iter):</span><br><span class="line">        errors = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> xi, target <span class="keyword">in</span> zip(X, y):</span><br><span class="line">            update = self.eta * (target - self.predict(xi))</span><br><span class="line">            self.w_[<span class="number">1</span>:] += update * xi</span><br><span class="line">            self.w_[<span class="number">0</span>] += update</span><br><span class="line">            errors += int(update != <span class="number">0.0</span>)</span><br><span class="line">        self.errors_.append(errors)</span><br><span class="line">    <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">net_input</span><span class="params">(self, X)</span>:</span></span><br><span class="line">    <span class="string">"""Calculate net input"""</span></span><br><span class="line">    <span class="keyword">return</span> np.dot(X, self.w_[<span class="number">1</span>:]) + self.w_[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, X)</span>:</span></span><br><span class="line">    <span class="string">"""return class label after unit step"""</span></span><br><span class="line">    <span class="keyword">return</span> np.where(self.net_input(X) &gt;= <span class="number">0.0</span>, <span class="number">1</span>, <span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
+<p>perceptron的逻辑如下图:<br><img src="/images/post/pythonML/perceptron.png" alt="perceptrion"></p>
+<p>感知器算法仅在两个类别确实线性可分并且学习率充分小的情况下才能保证收敛.<br>如果两个类别不可被一个线性决策界分开,可以设置最大训练集迭代次数(epoch)或者可容忍错误分类样本数<br>来停止算法的学习过程.</p>
+<blockquote>
+<p>效果图如下:<br><img src="/images/post/pythonML/perceptron_plt.png" alt="perceptrion_plt"></p>
+<p>error效果图如下:<br><img src="/images/post/pythonML/perceptron_error.png" alt="perceptrion_plt"></p>
+</blockquote>
+<h2 id="自适应线性神经元"><a href="#自适应线性神经元" class="headerlink" title="自适应线性神经元"></a>自适应线性神经元</h2><blockquote>
+<p>(ADAptive LInear NEuron,简称ADALINE) Adaline和Perceptron的一个重要区别是<br>Adaline算法中权重参数更新按照线性激活函数而不是单位阶跃函数.</p>
+</blockquote>
+<p>下面是遍导推导过程:<br><img src="/images/post/pythonML/Selection_001.png" alt="遍导"></p>
+<blockquote>
+<p>代码:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line"></span><br><span class="line">        self.w_ = np.zeros(<span class="number">1</span> + X.shape[<span class="number">1</span>])</span><br><span class="line">        self.cost_ = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.n_iter):</span><br><span class="line">            net_input = self.net_input(X)</span><br><span class="line">            <span class="comment"># Please note that the "activation" method has no effect</span></span><br><span class="line">            <span class="comment"># in the code since it is simply an identity function. We</span></span><br><span class="line">            <span class="comment"># could write `output = self.net_input(X)` directly instead.</span></span><br><span class="line">            <span class="comment"># The purpose of the activation is more conceptual, i.e.,</span></span><br><span class="line">            <span class="comment"># in the case of logistic regression, we could change it to</span></span><br><span class="line">            <span class="comment"># a sigmoid function to implement a logistic regression classifier.</span></span><br><span class="line">            output = self.activation(X)</span><br><span class="line">            errors = (y - output)</span><br><span class="line">            self.w_[<span class="number">1</span>:] += self.eta * X.T.dot(errors)</span><br><span class="line">            self.w_[<span class="number">0</span>] += self.eta * errors.sum()</span><br><span class="line">            cost = (errors**<span class="number">2</span>).sum() / <span class="number">2.0</span></span><br><span class="line">            self.cost_.append(cost)</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">net_input</span><span class="params">(self, X)</span>:</span></span><br><span class="line">        <span class="string">"""Calculate net input"""</span></span><br><span class="line">        <span class="keyword">return</span> np.dot(X, self.w_[<span class="number">1</span>:]) + self.w_[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">activation</span><span class="params">(self, X)</span>:</span></span><br><span class="line">        <span class="string">"""Compute linear activation"""</span></span><br><span class="line">        <span class="keyword">return</span> self.net_input(X)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, X)</span>:</span></span><br><span class="line">        <span class="string">"""Return class label after unit step"""</span></span><br><span class="line">        <span class="keyword">return</span> np.where(self.activation(X) &gt;= <span class="number">0.0</span>, <span class="number">1</span>, <span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>裸机图如下:<br><img src="/images/post/pythonML/Adaline.png" alt="Adaline"></p>
+<p>下图展示了权重在更新过程中如何得到损失函数J(w)最小值的.<br>右图展示了学习率过大时权重更新,每次都跳过了最小损失函数对应的权重值.<br><img src="/images/post/pythonML/weight.png" alt="weight"></p>
+<p>这里有一个对特征的要求,就是标准化(standardization).这样特征通常更有助于算法收敛.<br>公式是:<img src="/images/post/pythonML/standardization.png" alt="standardization"><br>用numpy很容易实现:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># standardize features</span></span><br><span class="line">X_std = np.copy(X)</span><br><span class="line">X_std[:, <span class="number">0</span>] = (X[:, <span class="number">0</span>] - X[:, <span class="number">0</span>].mean()) / X[:, <span class="number">0</span>].std()</span><br><span class="line">X_std[:, <span class="number">1</span>] = (X[:, <span class="number">1</span>] - X[:, <span class="number">1</span>].mean()) / X[:, <span class="number">1</span>].std()</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Adaline 效果图如下:<br><img src="/images/post/pythonML/Adaline_plt.png" alt="Adaline"></p>
+<p>Adaline error如下:<br><img src="/images/post/pythonML/Adaline_error.png" alt="Adaline"></p>
+</blockquote>
+<p>不过,这个算法有个缺点,由于每次梯度下降都要用到所有训练的样本,所以,计算量有些大.</p>
+<h2 id="随机梯度下降法"><a href="#随机梯度下降法" class="headerlink" title="随机梯度下降法"></a>随机梯度下降法</h2><blockquote>
+<p>stochastic gradient descent,也称迭代(iteration)或在线(on-line)梯度下降.</p>
+</blockquote>
+<p>随机梯度下降法每次只用一个样本对权重进行更新.实际上它收敛得更快,因为相同时间内它对权重更新的更频繁.<br><img src="/images/post/pythonML/SGD.png" alt="Adaline"></p>
+<p>代码如下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, eta=<span class="number">0.01</span>, n_iter=<span class="number">10</span>, shuffle=True, random_state=None)</span>:</span></span><br><span class="line">    self.eta = eta</span><br><span class="line">    self.n_iter = n_iter</span><br><span class="line">    self.w_initialized = <span class="keyword">False</span></span><br><span class="line">    self.shuffle = shuffle</span><br><span class="line">    <span class="keyword">if</span> random_state:</span><br><span class="line">        seed(random_state)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fit</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line"></span><br><span class="line">    self._initialize_weights(X.shape[<span class="number">1</span>])</span><br><span class="line">    self.cost_ = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(self.n_iter):</span><br><span class="line">        <span class="keyword">if</span> self.shuffle:</span><br><span class="line">            X, y = self._shuffle(X, y)</span><br><span class="line">        cost = []</span><br><span class="line">        <span class="keyword">for</span> xi, target <span class="keyword">in</span> zip(X, y):</span><br><span class="line">            cost.append(self._update_weights(xi, target))</span><br><span class="line">        avg_cost = sum(cost) / len(y)</span><br><span class="line">        self.cost_.append(avg_cost)</span><br><span class="line">    <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partial_fit</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line">    <span class="string">"""Fit training data without reinitializing the weights"""</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> self.w_initialized:</span><br><span class="line">        self._initialize_weights(X.shape[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">if</span> y.ravel().shape[<span class="number">0</span>] &gt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">for</span> xi, target <span class="keyword">in</span> zip(X, y):</span><br><span class="line">            self._update_weights(xi, target)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        self._update_weights(X, y)</span><br><span class="line">    <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_shuffle</span><span class="params">(self, X, y)</span>:</span></span><br><span class="line">    <span class="string">"""Shuffle training data"""</span></span><br><span class="line">    r = np.random.permutation(len(y))</span><br><span class="line">    <span class="keyword">return</span> X[r], y[r]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_initialize_weights</span><span class="params">(self, m)</span>:</span></span><br><span class="line">    <span class="string">"""Initialize weights to zeros"""</span></span><br><span class="line">    self.w_ = np.zeros(<span class="number">1</span> + m)</span><br><span class="line">    self.w_initialized = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_update_weights</span><span class="params">(self, xi, target)</span>:</span></span><br><span class="line">    <span class="string">"""Apply Adaline learning rule to update the weights"""</span></span><br><span class="line">    output = self.net_input(xi)</span><br><span class="line">    error = (target - output)</span><br><span class="line">    self.w_[<span class="number">1</span>:] += self.eta * xi.dot(error)</span><br><span class="line">    self.w_[<span class="number">0</span>] += self.eta * error</span><br><span class="line">    cost = <span class="number">0.5</span> * error**<span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> cost</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">net_input</span><span class="params">(self, X)</span>:</span></span><br><span class="line">    <span class="string">"""Calculate net input"""</span></span><br><span class="line">    <span class="keyword">return</span> np.dot(X, self.w_[<span class="number">1</span>:]) + self.w_[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">activation</span><span class="params">(self, X)</span>:</span></span><br><span class="line">    <span class="string">"""Compute linear activation"""</span></span><br><span class="line">    <span class="keyword">return</span> self.net_input(X)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(self, X)</span>:</span></span><br><span class="line">    <span class="string">"""Return class label after unit step"""</span></span><br><span class="line">    <span class="keyword">return</span> np.where(self.activation(X) &gt;= <span class="number">0.0</span>, <span class="number">1</span>, <span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>为了得到准确结果,一定要以随机方式选择样本计算梯度,通常做法在每一轮迭代后将训练集进行打乱重排(shuffle)</p>
+<blockquote>
+<p>Adaline效果图<br><img src="/images/post/pythonML/AdalineSGD_plt.png" alt="Adaline"></p>
+<p>average error. 这个是迭代总error除以训练集总数<br><img src="/images/post/pythonML/AdalineSGD_err.png" alt="Adaline"></p>
+</blockquote>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><blockquote>
+<p>具体代码请看<a href="https://github.com/rasbt/python-machine-learning-book/blob/master/code/ch02/ch02.ipynb" target="_blank" rel="noopener">PythonML Chapter2</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/machineLearning/" rel="tag"># machineLearning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/14/introductionToData/" rel="next" title="Introduction To Data(1)">
+                <i class="fa fa-chevron-left"></i> Introduction To Data(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" style="max-width:180px;"
+                src="/images/avatar/74766_729230_992060.gif"
+                alt="Green Zhenmie" />
+            
+              <p class="site-author-name" itemprop="name">Green Zhenmie</p>
+              <p class="site-description motion-element" itemprop="description">以女人为本</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhenmie365" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#感知器-Perceptron-和Adaline"><span class="nav-number">2.</span> <span class="nav-text">感知器(Perceptron)和Adaline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Perceptron"><span class="nav-number">2.1.</span> <span class="nav-text">Perceptron:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自适应线性神经元"><span class="nav-number">2.2.</span> <span class="nav-text">自适应线性神经元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机梯度下降法"><span class="nav-number">2.3.</span> <span class="nav-text">随机梯度下降法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">2.4.</span> <span class="nav-text">附录</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Green Zhenmie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2155198"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
