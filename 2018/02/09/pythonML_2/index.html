@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,machineLearning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述 ml的几种分类算法">
+<meta name="keywords" content="python,machineLearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python ML(2)">
+<meta property="og:url" content="http://yoursite.com/2018/02/09/pythonML_2/index.html">
+<meta property="og:site_name" content="Zhenmie&#39;s blog">
+<meta property="og:description" content="概述 ml的几种分类算法">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/logit.jpeg">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/logistic.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/sigmoid_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/z.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/sigmoid_function.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/likelihood.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/log_likelihood.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/log_likelihood_specail.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/log_likelihood_specail_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/logistic_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/logistic_tuidao.jpg">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/logistic_tuidao_2.jpg">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/log-likelihood-J_1.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/over-under-fitting-plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/svm_descpition_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/slack_variance.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/SVM_C1.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/SVM_C0_1.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/high_dimension.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/RBF_function_1.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/RBF_function_2.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/kernel_SVM_1.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/kernel_SVM_2.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/IG_1.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/entropy.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/gini.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/I_e.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/I_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/decisionTree_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/iris_tree_color.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/rondomTree_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/knn_descrpition.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/knn_plt.png">
+<meta property="og:image" content="http://yoursite.com/images/post/pythonML_2/minkowski.png">
+<meta property="og:updated_time" content="2018-02-09T08:25:32.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python ML(2)">
+<meta name="twitter:description" content="概述 ml的几种分类算法">
+<meta name="twitter:image" content="http://yoursite.com/images/post/pythonML_2/logit.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/09/pythonML_2/"/>
+
+
+
+
+
+  <title>python ML(2) | Zhenmie's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhenmie's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">跑啊跑啊,为了追上那个曾经被寄予厚望的自己</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/09/pythonML_2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Green Zhenmie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar/74766_729230_992060.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhenmie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python ML(2)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-09T16:25:32+08:00">
+                2018-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/" itemprop="url" rel="index">
+                    <span itemprop="name">working</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/python/machineLearning/" itemprop="url" rel="index">
+                    <span itemprop="name">machineLearning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/02/09/pythonML_2/" class="leancloud_visitors" data-flag-title="python ML(2)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote>
+<p>ml的几种分类算法</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="分类算法的选择"><a href="#分类算法的选择" class="headerlink" title="分类算法的选择"></a>分类算法的选择</h1><blockquote>
+<p>没有任何一种分类器可以在所有可能的应用场景下都有良好的表现.<br>分类器的性能,计算能力和预测能力,在很大程度上都依赖于用于模型训练的相关数据.</p>
+</blockquote>
+<p>五个主要步骤:<br>1.特征的选择<br>2.确定性能评价标准<br>3.选择分类器及其优化算法<br>4.对模型性能的评估<br>5.算法的调优</p>
+<h1 id="scikit-learn"><a href="#scikit-learn" class="headerlink" title="scikit-learn"></a>scikit-learn</h1><p>scikit-learn的API,它在实现几种高度优化的分类算法的同时,还提供了一个用户友好的接口.</p>
+<p>取数据的代码如下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris.data[:, [<span class="number">2</span>, <span class="number">3</span>]]</span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> Version(sklearn_version) &lt; <span class="string">'0.18'</span>:</span><br><span class="line">    <span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(</span><br><span class="line">    X, y, test_size=<span class="number">0.3</span>, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Standardizing the features</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"></span><br><span class="line">sc = StandardScaler()</span><br><span class="line">sc.fit(X_train)</span><br><span class="line">X_train_std = sc.transform(X_train)</span><br><span class="line">X_test_std = sc.transform(X_test)</span><br></pre></td></tr></table></figure></p>
+<p>scikit-learn中的大多数算法本身就使用<em>一对多</em>(One-vs-Rest,OvR)方法来支持多类别分类.</p>
+<h2 id="Perceptron的scikit-learn的实现"><a href="#Perceptron的scikit-learn的实现" class="headerlink" title="Perceptron的scikit-learn的实现:"></a>Perceptron的scikit-learn的实现:</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Perceptron</span><br><span class="line"></span><br><span class="line">ppn = Perceptron(n_iter=<span class="number">40</span>, eta0=<span class="number">0.1</span>, random_state=<span class="number">0</span>)</span><br><span class="line">ppn.fit(X_train_std, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = ppn.predict(X_test_std)</span><br><span class="line">print(<span class="string">'Misclassified samples: %d'</span> % (y_test != y_pred).sum())</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Accuracy: %.2f'</span> % accuracy_score(y_test, y_pred))</span><br></pre></td></tr></table></figure>
+<p>上面那个是<em>准确率</em>: 准确率 = 1 - 误分类率</p>
+<p>还是要提一下: 对于无法完美线性可分的数据集,感知器算法将永远无法<strong>收敛</strong>,这也是在实践中一般不推荐使用感知器算法的原因.</p>
+<h1 id="logistic-regression"><a href="#logistic-regression" class="headerlink" title="logistic regression"></a>logistic regression</h1><p><strong>逻辑斯谛回归</strong>: 一种针对线性二类别分类问题的简单但更高效的算法.它是一个<em>分类算法</em>,不是回归算法.</p>
+<h2 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h2><blockquote>
+<p><em>几率比</em>(odd ratio),它指的是特定事件发生的几率,数学公式为: p / (1 - p)<br><em>logit函数</em>,它是几率比的对数函数(log-odds,对数几率),数学公式: logit(p) = log(p / (1 - p))</p>
+</blockquote>
+<p>将对数几率记为输入特征值的线性表达式:<br><img src="/images/post/pythonML_2/logit.jpeg" alt="logit"></p>
+<p><strong>sigmoid函数</strong>: 是logit函数的反函数,称作logistic函数,对事件属于某一类别的概率进行预测也非常有用.<br><img src="/images/post/pythonML_2/logistic.png" alt="logistic"><br>它的图像呈S形.<br><img src="/images/post/pythonML_2/sigmoid_plt.png" alt="sigmoid_plt"><br>sigmoid函数以实数值作为输入并将其映射到[0,1]区间,其拐点位于0.5处.<br>其中z为净输入,也就是样本特征与权重的线性组合.<br><img src="/images/post/pythonML_2/z.png" alt="z"><br>和ADAline来对比,流程如下:<br><img src="/images/post/pythonML_2/sigmoid_function.png" alt="sigmoid_function"></p>
+<p>为了推导出逻辑斯谛回归模型的代价函数,我们在构建逻辑斯谛回归模型时,需要先定义一个最大<em>似然函数</em>(likelihood) L,<br>假定数据集中的每个样本都是相互独立的,其计算公式如下:<br><img src="/images/post/pythonML_2/likelihood.png" alt="likelihood"><br>然后取它的对数(log-likelihood):<br><img src="/images/post/pythonML_2/log_likelihood.png" alt="log_likelihood"><br>如果y=0,则第一项为0;如果y=1,则第二项为0.<br><img src="/images/post/pythonML_2/log_likelihood_specail.png" alt="log_likelihood_specail"><br><img src="/images/post/pythonML_2/log_likelihood_specail_plt.png" alt="log_likelihood_specail_plt"><br>对于蓝线,如果逻辑回归预测结果正确,类别为1,则损失为0;对于绿线,如果逻辑回归预测正确,类别为0,则损失为0。    如果预测错误,则损失趋向正无穷.</p>
+<h2 id="代码和可视化"><a href="#代码和可视化" class="headerlink" title="代码和可视化"></a>代码和可视化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line">lr = LogisticRegression(C=<span class="number">1000.0</span>, random_state=<span class="number">0</span>)</span><br><span class="line">lr.fit(X_train_std, y_train)</span><br><span class="line"></span><br><span class="line">plot_decision_regions(X_combined_std, y_combined,</span><br><span class="line">                      classifier=lr, test_idx=range(<span class="number">105</span>, <span class="number">150</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/pythonML_2/logistic_plt.png" alt="logistic_plt"></p>
+<p>下面的推导证明,逻辑斯谛回归中的回归系数更新用到的梯度下降本质上与第二章中的公式是一样的:<br><img src="/images/post/pythonML_2/logistic_tuidao.jpg" alt="logistic_tuidao"><br><img src="/images/post/pythonML_2/logistic_tuidao_2.jpg" alt="logistic_tuidao_2"></p>
+<p>由于最大化对数似然函数等价于最小化前面定义的代价函数J,因此可以将梯度下降的更新规则定义为:<br><img src="/images/post/pythonML_2/log-likelihood-J_1.png" alt="log-likelihood-J_1"></p>
+<h1 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h1><blockquote>
+<p><strong>过拟合</strong>是ML中常见问题,它是指模型在训练数据集上表现良好, 但是用于未知数据(测试数据)时性能不佳.<br>引起的原因可能是<em>参数过多</em>.此模型可能有高方差<br>相反,<strong>欠拟合</strong>也是常见问题,它是指模型过于简单,无法发现训练数据集中隐含的模式,这也会使得模型应用于未知数据时性能不佳.</p>
+</blockquote>
+<p><img src="/images/post/pythonML_2/over-under-fitting-plt.png" alt="over-under-fitting-plt"></p>
+<p>有两个概念:<br><strong>偏差</strong>(bias):可以总体上衡量预测值与实际值之间的差异,它衡量的是系统误差.反映的是模型期望与真实目标的差距<br><strong>方差</strong>(Variance):可以用来衡量模型对特定样本实例预测的一致性(或者说变化).可以说是由于本身模型缺乏稳定性,<br>造成了实际结果与模型期望之间的差距.</p>
+<p>偏差-方差权衡(bias-variance tradeoff)就是通过正则化调整模型的复杂度.正则化背后的概念是引入额外的信息(偏差)来对极端参数权重做出惩罚.<br>这两者的权衡在ml模型训练是常见的.</p>
+<h1 id="SVM"><a href="#SVM" class="headerlink" title="SVM"></a>SVM</h1><p><strong>支持向量机</strong>(support vector machine, SVM): 优化目标是最大化分类间隔.</p>
+<h2 id="使用svm最大化分类间隔"><a href="#使用svm最大化分类间隔" class="headerlink" title="使用svm最大化分类间隔"></a>使用svm最大化分类间隔</h2><p>此处间隔是指两个分离的超平面(决策边界)间的距离,而最靠近超平面的训练样本称作<em>支持向量</em>(support vector).<br><img src="/images/post/pythonML_2/svm_descpition_plt.png" alt="svm_descpition_plt"><br>决策边界间具有较大的间隔意味着模型具有较小的泛化误差, 而较小的间隔则意味着模型可能过拟合.<em>这也是bias和var的权衡</em>.</p>
+<p><strong>松弛变量</strong>(slack variable):对于非线性可分的数据来说,需要放松线性约束条件,以保证在适当的罚项成本下,对错误分类的情况进行优化时能够收敛.<br><img src="/images/post/pythonML_2/slack_variance.png" alt="slack_variance"><br>通过变量C,我们可以控制对错误分类的惩罚程度.</p>
+<h3 id="代码和可视化-1"><a href="#代码和可视化-1" class="headerlink" title="代码和可视化"></a>代码和可视化</h3><p>用下面的代码来说明C的作用:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line">svm = SVC(kernel=<span class="string">'linear'</span>, C=<span class="number">1.0</span>, random_state=<span class="number">0</span>)</span><br><span class="line">svm.fit(X_train_std, y_train)</span><br><span class="line"></span><br><span class="line">plot_decision_regions(X_combined_std, y_combined,</span><br><span class="line">                      classifier=svm, test_idx=range(<span class="number">105</span>, <span class="number">150</span>))</span><br></pre></td></tr></table></figure></p>
+<p>C是1.0时的图:<br><img src="/images/post/pythonML_2/SVM_C1.png" alt="SVM_C=1"><br>C是0.01时的图:<br><img src="/images/post/pythonML_2/SVM_C0_1.png" alt="SVM_C=0.01"><br>正规来说,就是通过增加C的值来增加偏差并降低模型的方差.通俗来说,就是C越大,模型越严谨;C越小,模型越宽松.</p>
+<blockquote>
+<p>logistic和SVM的比较:前者会尽量最大化训练数据集的条件似然,这使得它比后者更易于处理离群点.<br>                   后者更关注接近决策边界(支持向量)的点.前者另一个优势在于模型简单从而更容易实现.<br>                   此外,前者模型更新方便,当应用于流数据分析时,这是非常具备吸引力的.</p>
+</blockquote>
+<p>另外,有另一种方式来用代码实现上面的学习模型:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> SGDClassifier</span><br><span class="line">ppn = SGDClassifier(loss=<span class="string">'perceptron'</span>)</span><br><span class="line">lr = SGDClassifier(loss=<span class="string">'log'</span>)</span><br><span class="line">svm = SGDClassifier(loss=<span class="string">'hinge'</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用核SVM解决非线性问题"><a href="#使用核SVM解决非线性问题" class="headerlink" title="使用核SVM解决非线性问题"></a>使用核SVM解决非线性问题</h2><p><strong>核方法</strong>处理此类非线性可分数据的基本理念就是:通过映射函数将样本的原始特征映射到一个使样本线性可分的更高维空间中.<br><img src="/images/post/pythonML_2/high_dimension.png" alt="highDimension"></p>
+<p>最广为使用的核函数就是<em>径向基函数核</em>(Radial Basis Function kernel, RBF kernel) 或 <em>高斯核</em>(Gaussian kernel):<br><img src="/images/post/pythonML_2/RBF_function_1.png" alt="RBF1"><br>常简写为:<br><img src="/images/post/pythonML_2/RBF_function_2.png" alt="RBF2"><br>其中,那个类似r的是待优化的自由参数.<br>在代码中,表现在gamma参数上,可以理解为高斯球面的截至参数(cutoff parameter)<br>gamma变小,就会增加受影响的训练样本的范围,这将导致决策边界更加宽松.</p>
+<h3 id="代码和可视化-2"><a href="#代码和可视化-2" class="headerlink" title="代码和可视化"></a>代码和可视化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line">svm = SVC(kernel=<span class="string">'rbf'</span>, random_state=<span class="number">0</span>, gamma=<span class="number">0.2</span>, C=<span class="number">1.0</span>)</span><br><span class="line">svm.fit(X_train_std, y_train)</span><br><span class="line"></span><br><span class="line">plot_decision_regions(X_combined_std, y_combined,</span><br><span class="line">                      classifier=svm, test_idx=range(<span class="number">105</span>, <span class="number">150</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/pythonML_2/kernel_SVM_1.png" alt="kernelSVM_1"><br>当gamma为100时:<br><img src="/images/post/pythonML_2/kernel_SVM_2.png" alt="kernelSVM_2"><br>可以看出,r值会导致决策边界完全变型;而相对,C值会影响模型的严厉程度.两者都是越大越倾向过拟合.(纯粹个人理解)<br>r的调优在控制过拟合方面也起到了重要作用.</p>
+<h1 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><strong>决策树</strong> 吸引人的地方在于其模型的可解析性.<br>使用决策树算法,从树根开始,基于可获得最大信息增益(information gain,IG)的特征来对数据进行划分.</p>
+<p><strong>剪枝</strong>:来限制树的最大深度,防止模型过拟合.<br><em>最大化信息增益</em>:获知尽可能准确的结果<br>公式为:<img src="/images/post/pythonML_2/IG_1.png" alt="IG_1"><br>f为将要进行划分的特征,D<em>p</em>与D<em>j</em>分别为父节点和第<em>j</em>个子节点,<em>I</em>为不纯度衡量指标,N<em>p</em>为父节点中样本的数量,<br>N<em>j</em>为第<em>j</em>个子节点中样本的数量.<br>由此可见,信息增益只不过是父节点与所有子节点不纯度总和之差–字节点的不纯度越低,信息增益越大.</p>
+<p>二叉决策树中常用的三个不纯度衡量标准或划分标准:<br>1.<strong>熵</strong>(entropy):<img src="/images/post/pythonML_2/entropy.png" alt="entropy"><br>2.<strong>基尼系数</strong>(Gini index):<img src="/images/post/pythonML_2/gini.png" alt="gini"><br>3.<strong>误分类率</strong>(classification error):<img src="/images/post/pythonML_2/I_e.png" alt="I_e"></p>
+<p>基尼与熵都是当所有类别是等比例分别时,其值最大.而误分类率对节点中各类别样本数量的变动不敏感.<br>下面图像可以作一个区别:<br><img src="/images/post/pythonML_2/I_plt.png" alt="I_plt"></p>
+<h2 id="代码与可视化"><a href="#代码与可视化" class="headerlink" title="代码与可视化"></a>代码与可视化</h2><blockquote>
+<p>虽然特征缩放是出于可视化的目的, 但在决策树算法中,这不是必须的.(即系不需要正则化)</p>
+</blockquote>
+<p>将特征空间进行矩形划分的方式来构建复杂的决策边界.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">tree = DecisionTreeClassifier(criterion=<span class="string">'entropy'</span>, max_depth=<span class="number">3</span>, random_state=<span class="number">0</span>)</span><br><span class="line">tree.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">X_combined = np.vstack((X_train, X_test))</span><br><span class="line">y_combined = np.hstack((y_train, y_test))</span><br><span class="line">plot_decision_regions(X_combined, y_combined,</span><br><span class="line">                      classifier=tree, test_idx=range(<span class="number">105</span>, <span class="number">150</span>))</span><br></pre></td></tr></table></figure></p>
+<p>参数max_depth表示决策树的最大深度,越大就越精确,但可能会过拟合.到一定的深度就不会变,可以理解为树已经定型了,不能再分了.<br><img src="/images/post/pythonML_2/decisionTree_plt.png" alt="decisionTree"></p>
+<p>用GraphViz可以生成树图:<br><img src="/images/post/pythonML_2/iris_tree_color.png" alt="graphViz_tree_color"></p>
+<h1 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><p><strong>随机森林</strong>(random forest):具备好的分类能力,可扩展性,易用性.<br>直观上,随机森林可以视为多棵决策树的继承.集成学习的基本理念就是将<em>弱分类器集成为鲁棒性(robust)更强的模型</em>.<br>其中有个步骤是汇总每颗决策树的类标进行<em>多数投票</em>(majority vote).<br>需要关心的参数是为构建随机森林所需的决策树数量.</p>
+<h2 id="代码与可视化-1"><a href="#代码与可视化-1" class="headerlink" title="代码与可视化"></a>代码与可视化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line">forest = RandomForestClassifier(criterion=<span class="string">'entropy'</span>,</span><br><span class="line">                                n_estimators=<span class="number">10</span>,</span><br><span class="line">                                random_state=<span class="number">1</span>,</span><br><span class="line">                                n_jobs=<span class="number">2</span>)</span><br><span class="line">forest.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">plot_decision_regions(X_combined, y_combined,</span><br><span class="line">                      classifier=forest, test_idx=range(<span class="number">105</span>, <span class="number">150</span>))</span><br></pre></td></tr></table></figure>
+<p>其中n_estimators参数为选用决策树的数目,n_jobs设定训练过程中所需的处理器内核数量.<br><img src="/images/post/pythonML_2/rondomTree_plt.png" alt="rondomTree_plt"></p>
+<h1 id="k-近邻算法"><a href="#k-近邻算法" class="headerlink" title="k-近邻算法"></a>k-近邻算法</h1><h2 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h2><p><strong>k-近邻算法</strong>(k-nearest neighbor classifier, KNN):它是惰性学习算法的典型例子.<br>因为它不仅仅对训练数据集有记忆功能,而不会从训练数据集中通过学习得到一个判别函数.<br><img src="/images/post/pythonML_2/knn_descrpition.png" alt="knn_descrpition"></p>
+<p>KNN算法本身是很简单的,可以归纳为以下几步:<br>1.选择近邻的数量k和距离度量方法<br>2.找到待分类样本的k个最近邻居<br>3.根据最近邻的类标进行多数投票</p>
+<p>优点是分类器可以快速地适应新的训练数据,相对缺点:最快情况下,计算复杂度随着样本数量的增多而呈线性增长.</p>
+<h2 id="代码与可视化-2"><a href="#代码与可视化-2" class="headerlink" title="代码与可视化"></a>代码与可视化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"></span><br><span class="line">knn = KNeighborsClassifier(n_neighbors=<span class="number">5</span>, p=<span class="number">2</span>, metric=<span class="string">'minkowski'</span>)</span><br><span class="line">knn.fit(X_train_std, y_train)</span><br><span class="line"></span><br><span class="line">plot_decision_regions(X_combined_std, y_combined,</span><br><span class="line">                      classifier=knn, test_idx=range(<span class="number">105</span>, <span class="number">150</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/pythonML_2/knn_plt.png" alt="knn_plt"><br>其中,找到k值(n_neighbors)是在过拟合与欠拟合之间找到平衡的关键所在.还要必需保证所选的距离度量标准适用于数据集中的特征.<br><em>闵可夫斯基</em>(minkowski)距离是对欧几里得距离及曼哈顿距离的一种泛化.<br><img src="/images/post/pythonML_2/minkowski.png" alt="minkowski"><br>当参数p为2时,则为欧几里得距离;当=1时,就是曼哈顿距离.</p>
+<p><strong>维度灾难</strong>:对于一个固定大小的训练集,如果特征空间维度非常高,空间中最相似的两个点也可能距离很远(差别很大).<br>直观地说,可以认为即使是最近的邻居,它们在高维空间中的实际距离也是非常远的,因此难以给出一个合适的类标判定.<br>正则化方法并不适用于诸如决策树和KNN等算法,但可以使用<em>特征选择</em>和<em>降维</em>等技术来帮助其避免维度灾难.</p>
+<h1 id="算法分类"><a href="#算法分类" class="headerlink" title="算法分类"></a>算法分类</h1><p><strong>参数化模型</strong>:需要通过训练数据估计参数,并通过学习得到一个模式,以便在无需原始训练数据信息的情况下对新的数据点进行分类操作.<br>如 感知器,逻辑斯谛回归和线性支持向量机<br><strong>非参数化模型</strong>:无法通过一组固定的参数来进行表征,而参数的数量也会训练数据的增加而递增.<br>如决策树(包括随机森林)和核SVM,KNN</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><blockquote>
+<p>具体代码请看<a href="https://github.com/rasbt/python-machine-learning-book/blob/master/code/ch03/ch03.ipynb" target="_blank" rel="noopener">PythonML Chapter3</a><br>或<a href="https://github.com/zhenmie365/pythonStudy/blob/master/examples/pyml/scikitLearn.py" target="_blank" rel="noopener">my github</a></p>
+<p>scikit-learn的在线文档:<a href="http://scikit-learn.org/stable" target="_blank" rel="noopener">scikit-learn</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/machineLearning/" rel="tag"># machineLearning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/09/pythonML_1/" rel="next" title="python ML(1)">
+                <i class="fa fa-chevron-left"></i> python ML(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" style="max-width:180px;"
+                src="/images/avatar/74766_729230_992060.gif"
+                alt="Green Zhenmie" />
+            
+              <p class="site-author-name" itemprop="name">Green Zhenmie</p>
+              <p class="site-description motion-element" itemprop="description">以女人为本</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhenmie365" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类算法的选择"><span class="nav-number">2.</span> <span class="nav-text">分类算法的选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scikit-learn"><span class="nav-number">3.</span> <span class="nav-text">scikit-learn</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Perceptron的scikit-learn的实现"><span class="nav-number">3.1.</span> <span class="nav-text">Perceptron的scikit-learn的实现:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#logistic-regression"><span class="nav-number">4.</span> <span class="nav-text">logistic regression</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#推导"><span class="nav-number">4.1.</span> <span class="nav-text">推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码和可视化"><span class="nav-number">4.2.</span> <span class="nav-text">代码和可视化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过拟合"><span class="nav-number">5.</span> <span class="nav-text">过拟合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM"><span class="nav-number">6.</span> <span class="nav-text">SVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用svm最大化分类间隔"><span class="nav-number">6.1.</span> <span class="nav-text">使用svm最大化分类间隔</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码和可视化-1"><span class="nav-number">6.1.1.</span> <span class="nav-text">代码和可视化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用核SVM解决非线性问题"><span class="nav-number">6.2.</span> <span class="nav-text">使用核SVM解决非线性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码和可视化-2"><span class="nav-number">6.2.1.</span> <span class="nav-text">代码和可视化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#决策树"><span class="nav-number">7.</span> <span class="nav-text">决策树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">7.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码与可视化"><span class="nav-number">7.2.</span> <span class="nav-text">代码与可视化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#随机森林"><span class="nav-number">8.</span> <span class="nav-text">随机森林</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-1"><span class="nav-number">8.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码与可视化-1"><span class="nav-number">8.2.</span> <span class="nav-text">代码与可视化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#k-近邻算法"><span class="nav-number">9.</span> <span class="nav-text">k-近邻算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-2"><span class="nav-number">9.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码与可视化-2"><span class="nav-number">9.2.</span> <span class="nav-text">代码与可视化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法分类"><span class="nav-number">10.</span> <span class="nav-text">算法分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">11.</span> <span class="nav-text">附录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Green Zhenmie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2155198"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("HTR7GGc4xSkCr6XLLE5a92lr-gzGzoHsz", "aQpNYJbxtzgycXwTaNmtxrFV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
