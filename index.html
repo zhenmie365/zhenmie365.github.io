@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/01/female/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/fluentPython_/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Green Zhenmie">
@@ -271,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/01/female/" itemprop="url">女人自大起黎好黑人憎</a></h1>
+                <a class="post-title-link" href="/2018/03/07/fluentPython_/" itemprop="url">FluentPython笔记</a></h1>
         
 
         <div class="post-meta">
@@ -283,8 +283,197 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-01T09:22:40+08:00">
-                2018-03-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-07T15:40:05+08:00">
+                2018-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/" itemprop="url" rel="index">
+                    <span itemprop="name">working</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/python/basic/" itemprop="url" rel="index">
+                    <span itemprop="name">basic</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/07/fluentPython_/" class="leancloud_visitors" data-flag-title="FluentPython笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>FluentPython(流畅的python)好多嘢都好详细,在此记一下笔记.</p>
+<h1 id="with的使用"><a href="#with的使用" class="headerlink" title="with的使用"></a>with的使用</h1><p><em>with</em>语句会设置一个临时的上下文, 交给上下文管理器对象控制,并且负责情理上下文.<br><em>上下文管理器</em>对象存在的目的是管理with语句,就像迭代器的存在是为了管理for语句一样.<br>with语句的目的是简化try/finally模式,如下代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> open(<span class="string">'mirror.py'</span>) <span class="keyword">as</span> fp: <span class="comment">#</span></span><br><span class="line">...</span><br><span class="line">src = fp.read(<span class="number">60</span>) <span class="comment">#</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(src)</span><br><span class="line"><span class="number">60</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp <span class="comment">#</span></span><br><span class="line">&lt;_io.TextIOWrapper name=<span class="string">'mirror.py'</span> mode=<span class="string">'r'</span> encoding=<span class="string">'UTF-8'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp.closed, fp.encoding <span class="comment">#</span></span><br><span class="line">(<span class="keyword">True</span>, <span class="string">'UTF-8'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp.read(<span class="number">60</span>) <span class="comment">#</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError: I/O operation on closed file.</span><br></pre></td></tr></table></figure>
+<p>上下文管理器协议包含 <strong>__enter__</strong> 和 <strong>__exit__</strong> 两个方法.<br>在with语句开始运行时,会在上下文管理器对象上调用__enter__方法;<br>在with语句运行结束后,会在上下文管理器对象上调用__exit__方法,以此扮演finally字句的角色.</p>
+<p>一个上下文管理器的实现可以如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LookingGlass</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__enter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">import</span> sys</span><br><span class="line">        self.original_write = sys.stdout.write</span><br><span class="line">        sys.stdout.write = self.reverse_write</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'JABBERWOCKY'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse_write</span><span class="params">(self, text)</span>:</span></span><br><span class="line">        self.original_write(text[::<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__exit__</span><span class="params">(self, exc_type, exc_value, traceback)</span>:</span></span><br><span class="line">        <span class="keyword">import</span> sys</span><br><span class="line">        sys.stdout.write = self.original_write</span><br><span class="line">        <span class="keyword">if</span> exc_type <span class="keyword">is</span> ZeroDivisionError:</span><br><span class="line">            print(<span class="string">'Please DO NOT divide by zero!'</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p>with还有很多用法:<br>例如:<br><a href="https://docs.python.org/3/library/sqlite3.html#using-the-connetion-as-a-context-manager" target="_blank" rel="noopener">在sqlite3模块中用于管理事务</a><br><a href="https://docs.python.org/3/library/threading.html#using-locks-conditions-and-semaphores-in-the-with-statement" target="_blank" rel="noopener">在threading模块中用于维护锁,条件和信号</a><br><a href="https://docs.python.org/3/library/demical.html#decimal.localcontext" target="_blank" rel="noopener">在Decimal对象的算术运算设置环境</a><br><a href="https://docs.python.org/3/library/unittest.mock.html#patch" target="_blank" rel="noopener">为了测试临时给对象打补丁</a></p>
+<h2 id="contextlib模块"><a href="#contextlib模块" class="headerlink" title="contextlib模块"></a>contextlib模块</h2><p>其中@contextmanager函数的功能好似with,而且简洁多了.<br>直接看代码更加直观:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> contextlib</span><br><span class="line"></span><br><span class="line"><span class="meta">@contextlib.contextmanager</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">looking_glass</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">import</span> sys</span><br><span class="line">    original_write = sys.stdout.write</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse_write</span><span class="params">(text)</span>:</span></span><br><span class="line">        original_write(text[::<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line">    sys.stdout.write = reverse_write</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'JABBERWOCKY'</span></span><br><span class="line">    sys.stdout.write = original_write</span><br></pre></td></tr></table></figure></p>
+<p>输出:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> looking_glass() <span class="keyword">as</span> what:</span><br><span class="line">...</span><br><span class="line">print(<span class="string">'Alice, Kitty and Snowdrop'</span>)</span><br><span class="line">...</span><br><span class="line">print(what)</span><br><span class="line">...</span><br><span class="line">pordwonS dna yttiK ,ecilA</span><br><span class="line">YKCOWREBBAJ</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>what</span><br><span class="line"><span class="string">'JABBERWOCKY'</span></span><br></pre></td></tr></table></figure></p>
+<p>在使用@contextmanager装饰的生成器中,yield语句的作用是把函数的定义体分成两部分:<br>yield语句前面的所有代码在with块开始时(即解释器调用__enter__方法时)执行,<br>yield语句后面的所有代码在with块结束时(即解释器调用__exit__方法时)执行.</p>
+<blockquote>
+<p>注意,使用@contextmanager装饰器时, 要把yield语句放在try/finally语句中!!</p>
+<p>我觉得这样很想java中的模板模式.迟一点看一下python装饰器是怎么解析.</p>
+</blockquote>
+<p><a href="https://docs.python.org/3/library/contextlib.html" target="_blank" rel="noopener">conttextlib其他方法具体可以点击</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/female/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Green Zhenmie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar/74766_729230_992060.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhenmie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/07/female/" itemprop="url">女人有点嘢好难顶</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-07T15:01:55+08:00">
+                2018-03-07
               </time>
             
 
@@ -345,7 +534,7 @@
 
           
           
-             <span id="/2018/03/01/female/" class="leancloud_visitors" data-flag-title="女人自大起黎好黑人憎">
+             <span id="/2018/03/07/female/" class="leancloud_visitors" data-flag-title="女人有点嘢好难顶">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -378,7 +567,8 @@
       
         
           
-            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>特别系识少少知识就系度显摆嘅,前序得唔得.扮下唔识,扮下可爱,得唔得,啊!啊!?啊!@</p>
+            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>特别系识少少知识就系度显摆嘅,谦虚d得唔得.扮下唔识,扮下可爱,得唔得,啊!啊!?啊!@</p>
+<h2 id="续"><a href="#续" class="headerlink" title="续"></a>续</h2><p>深受韩剧影响,自以为是,特别喜欢搞d阻碍考验下人,而又不会考虑人地感受嘅女人,有系特别难搞.<br>我一个新时代大好宅男,有鬼咁多心机同精力估你心里琳紧咩.而就算明面问你,你都含含蓄蓄,别别扭扭的,<br>好心你有咩就直讲!!大家都年龄唔细,情情踏踏嘅嘢就唔好再做啦,大家都系想搵返个傍过埋下半世!<br>在我睇黎,宽容同理解可以解决好多嘢.唔好再好似d青春剧咁转黎转去啦!!</p>
 
           
         
@@ -1557,7 +1747,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1568,7 +1758,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1579,7 +1769,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
