@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="介绍FluentPython(流畅的python)好多嘢都好详细,在此记一下笔记. with的使用with语句会设置一个临时的上下文, 交给上下文管理器对象控制,并且负责情理上下文.上下文管理器对象存在的目的是管理with语句,就像迭代器的存在是为了管理for语句一样.with语句的目的是简化try/finally模式,如下代码: 1234567891011121314&amp;gt;&amp;gt;&amp;gt; w">
+<meta name="description" content="介绍FluentPython(流畅的python)好多嘢都好详细,在此记一下笔记.">
 <meta name="keywords" content="python,basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FluentPython笔记">
 <meta property="og:url" content="http://yoursite.com/2018/03/07/fluentPython_/index.html">
 <meta property="og:site_name" content="Zhenmie&#39;s blog">
-<meta property="og:description" content="介绍FluentPython(流畅的python)好多嘢都好详细,在此记一下笔记. with的使用with语句会设置一个临时的上下文, 交给上下文管理器对象控制,并且负责情理上下文.上下文管理器对象存在的目的是管理with语句,就像迭代器的存在是为了管理for语句一样.with语句的目的是简化try/finally模式,如下代码: 1234567891011121314&amp;gt;&amp;gt;&amp;gt; w">
+<meta property="og:description" content="介绍FluentPython(流畅的python)好多嘢都好详细,在此记一下笔记.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-07T07:40:05.648Z">
+<meta property="og:updated_time" content="2018-03-07T08:17:33.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FluentPython笔记">
-<meta name="twitter:description" content="介绍FluentPython(流畅的python)好多嘢都好详细,在此记一下笔记. with的使用with语句会设置一个临时的上下文, 交给上下文管理器对象控制,并且负责情理上下文.上下文管理器对象存在的目的是管理with语句,就像迭代器的存在是为了管理for语句一样.with语句的目的是简化try/finally模式,如下代码: 1234567891011121314&amp;gt;&amp;gt;&amp;gt; w">
+<meta name="twitter:description" content="介绍FluentPython(流畅的python)好多嘢都好详细,在此记一下笔记.">
 
 
 
@@ -282,7 +282,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-07T15:40:05+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-07T16:17:33+08:00">
                 2018-03-07
               </time>
             
@@ -376,6 +376,7 @@
 
       
         <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>FluentPython(流畅的python)好多嘢都好详细,在此记一下笔记.</p>
+<a id="more"></a>
 <h1 id="with的使用"><a href="#with的使用" class="headerlink" title="with的使用"></a>with的使用</h1><p><em>with</em>语句会设置一个临时的上下文, 交给上下文管理器对象控制,并且负责情理上下文.<br><em>上下文管理器</em>对象存在的目的是管理with语句,就像迭代器的存在是为了管理for语句一样.<br>with语句的目的是简化try/finally模式,如下代码:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> open(<span class="string">'mirror.py'</span>) <span class="keyword">as</span> fp: <span class="comment">#</span></span><br><span class="line">...</span><br><span class="line">src = fp.read(<span class="number">60</span>) <span class="comment">#</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(src)</span><br><span class="line"><span class="number">60</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp <span class="comment">#</span></span><br><span class="line">&lt;_io.TextIOWrapper name=<span class="string">'mirror.py'</span> mode=<span class="string">'r'</span> encoding=<span class="string">'UTF-8'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp.closed, fp.encoding <span class="comment">#</span></span><br><span class="line">(<span class="keyword">True</span>, <span class="string">'UTF-8'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fp.read(<span class="number">60</span>) <span class="comment">#</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ValueError: I/O operation on closed file.</span><br></pre></td></tr></table></figure>
 <p>上下文管理器协议包含 <strong>__enter__</strong> 和 <strong>__exit__</strong> 两个方法.<br>在with语句开始运行时,会在上下文管理器对象上调用__enter__方法;<br>在with语句运行结束后,会在上下文管理器对象上调用__exit__方法,以此扮演finally字句的角色.</p>
@@ -390,6 +391,7 @@
 <p>我觉得这样很想java中的模板模式.迟一点看一下python装饰器是怎么解析.</p>
 </blockquote>
 <p><a href="https://docs.python.org/3/library/contextlib.html" target="_blank" rel="noopener">conttextlib其他方法具体可以点击</a></p>
+<h1 id="else块"><a href="#else块" class="headerlink" title="else块"></a>else块</h1><p>else语句if语句后,有”排他性”,例如”要么运行这个循环,要么做那件事”.<br>但与for,while,try一起出现就不同了,且恰恰相反,”运行这个循环,然后做那件事”<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    dangerous_call()</span><br><span class="line"><span class="keyword">except</span> OSError:</span><br><span class="line">    log(<span class="string">'OSError...'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    after_call()</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -581,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#with的使用"><span class="nav-number">2.</span> <span class="nav-text">with的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#contextlib模块"><span class="nav-number">2.1.</span> <span class="nav-text">contextlib模块</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#with的使用"><span class="nav-number">2.</span> <span class="nav-text">with的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#contextlib模块"><span class="nav-number">2.1.</span> <span class="nav-text">contextlib模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#else块"><span class="nav-number">3.</span> <span class="nav-text">else块</span></a></li></ol></div>
             
 
           </div>
