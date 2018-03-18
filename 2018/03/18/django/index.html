@@ -90,6 +90,9 @@
 <meta property="og:image" content="http://yoursite.com/images/post/django/Picture1.png">
 <meta property="og:image" content="http://yoursite.com/images/post/django/Picture2.png">
 <meta property="og:image" content="http://yoursite.com/images/post/django/Picture3.png">
+<meta property="og:image" content="http://yoursite.com/images/post/django/Selection_008.png">
+<meta property="og:image" content="http://yoursite.com/images/post/django/Selection_009.png">
+<meta property="og:image" content="http://yoursite.com/images/post/django/Selection_010.png">
 <meta property="og:image" content="http://yoursite.com/images/post/django/Selection_001.png">
 <meta property="og:image" content="http://yoursite.com/images/post/django/Selection_002.png">
 <meta property="og:image" content="http://yoursite.com/images/post/django/Selection_003.png">
@@ -100,7 +103,7 @@
 <meta property="og:image" content="http://yoursite.com/images/post/django/Picture4.png">
 <meta property="og:image" content="http://yoursite.com/images/post/django/Picture5.png">
 <meta property="og:image" content="http://yoursite.com/images/post/django/Picture6.png">
-<meta property="og:updated_time" content="2018-03-18T06:47:04.464Z">
+<meta property="og:updated_time" content="2018-03-18T08:17:34.738Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django使用笔记">
 <meta name="twitter:description" content="概述学习使用django的过程中做下笔记.话不多,截一下图.详细的还是去官网上看文档.不妨认真看看官网文档,对于web架构的理解有很大帮助.">
@@ -296,7 +299,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-18T14:47:04+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-18T16:17:34+08:00">
                 2018-03-18
               </time>
             
@@ -404,6 +407,15 @@
 </blockquote>
 <p>用一个命令可以将创建的env作为系统默认python环境(就是在path环境变量里覆盖了).<br>在创建的virtualenv环境里的/bin文件夹里输入如下命令.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source bin/activate</span><br></pre></td></tr></table></figure></p>
 <p>当然,相反可以用如下命令来取消:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ deactivate</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>详细请点击<a href="https://virtualenv.pypa.io/en/stable/" target="_blank" rel="noopener">官网</a></p>
+</blockquote>
+<h2 id="数据库连接"><a href="#数据库连接" class="headerlink" title="数据库连接"></a>数据库连接</h2><p>django默认用sqlite3来做数据库,官方网站说这个数据库可以用来做测试,但不推荐用作产品.<br>用命令就可以导入app模块和根据模型来创建数据库表.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py makemigrations appModelName</span><br><span class="line">$ python manage.py migrate</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>下面就说一下mysql的链接</p>
+</blockquote>
+<p>本来打算就在anaconda的python环境里安装mysqlclient包,因为要链接mysql数据库就要这个客户端包.<br>但不清楚什么原因,安装mysqlclient包的过程中和anaconda原有包冲突.所以,用virtualenv建另一个python环境来安装django和mysqlclient包.</p>
+<p>然后就要设置链接mysql数据库,<br><img src="/images/post/django/Selection_008.png" alt="mysql_setting"><br>在项目的settings.py文件里,设置DATABASES属性<br><img src="/images/post/django/Selection_009.png" alt="mysql_setting_DATABASES"><br>然后makemigrations和migrate命令就可以链接数据库而且在数据库创建相关表.<br><img src="/images/post/django/Selection_010.png" alt="mysql_server_tables"></p>
 <p>……</p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>由于时间原因,我先将效果图发出来.等有时间了,我再补回中间内容.<br>还是那句,什么教程书都是浮云,官网才是权威!(虽然官网好多都是英文)<br>setting.py文件<br><img src="/images/post/django/Selection_001.png" alt="settingFile"><br>urls.py文件<br><img src="/images/post/django/Selection_002.png" alt="urlsFile"><br>创建migration的py文件<br><img src="/images/post/django/Selection_003.png" alt="create_migration_file"><br>index.html模板文件,留意这个文件的文件夹层级,为什么要这样架构,我还是不太明白.<br><img src="/images/post/django/Selection_004.png" alt="index_template_file"><br>和数据库连接的模型models.py文件<br><img src="/images/post/django/Selection_005.png" alt="models_file"><br>app模块的urls.py文件<br><img src="/images/post/django/Selection_006.png" alt="app_url_file"><br>views.py视图文件<br><img src="/images/post/django/Selection_007.png" alt="app_views_file"><br>页面效果图<br><img src="/images/post/django/Picture4.png" alt="page1"><br><img src="/images/post/django/Picture5.png" alt="page2"><br>至于数据库,用sqlite3命令来查看数据库<br><img src="/images/post/django/Picture6.png" alt="sqlite"></p>
 
@@ -597,7 +609,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记"><span class="nav-number">2.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#virtualenv"><span class="nav-number">2.2.</span> <span class="nav-text">virtualenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">2.3.</span> <span class="nav-text">效果</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记"><span class="nav-number">2.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#virtualenv"><span class="nav-number">2.2.</span> <span class="nav-text">virtualenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库连接"><span class="nav-number">2.3.</span> <span class="nav-text">数据库连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">2.4.</span> <span class="nav-text">效果</span></a></li></ol></li></ol></div>
             
 
           </div>
