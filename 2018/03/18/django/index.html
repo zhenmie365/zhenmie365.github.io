@@ -83,7 +83,7 @@
 <meta name="keywords" content="python,web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django使用笔记">
-<meta property="og:url" content="http://yoursite.com/2018/03/16/django/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/03/18/django/index.html">
 <meta property="og:site_name" content="Zhenmie&#39;s blog">
 <meta property="og:description" content="概述学习使用django的过程中做下笔记.话不多,截一下图.详细的还是去官网上看文档.不妨认真看看官网文档,对于web架构的理解有很大帮助.">
 <meta property="og:locale" content="en">
@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://yoursite.com/images/post/django/Picture4.png">
 <meta property="og:image" content="http://yoursite.com/images/post/django/Picture5.png">
 <meta property="og:image" content="http://yoursite.com/images/post/django/Picture6.png">
-<meta property="og:updated_time" content="2018-03-16T02:35:55.324Z">
+<meta property="og:updated_time" content="2018-03-18T06:42:17.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django使用笔记">
 <meta name="twitter:description" content="概述学习使用django的过程中做下笔记.话不多,截一下图.详细的还是去官网上看文档.不妨认真看看官网文档,对于web架构的理解有很大帮助.">
@@ -134,7 +134,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/16/django/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/18/django/"/>
 
 
 
@@ -267,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/16/django/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/18/django/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Green Zhenmie">
@@ -296,8 +296,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-16T10:35:55+08:00">
-                2018-03-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-18T14:42:17+08:00">
+                2018-03-18
               </time>
             
 
@@ -358,7 +358,7 @@
 
           
           
-             <span id="/2018/03/16/django/" class="leancloud_visitors" data-flag-title="django使用笔记">
+             <span id="/2018/03/18/django/" class="leancloud_visitors" data-flag-title="django使用笔记">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -392,6 +392,18 @@
         <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>学习使用django的过程中做下笔记.话不多,截一下图.<br>详细的还是去<a href="https://www.djangoproject.com/" target="_blank" rel="noopener">官网</a>上看文档.不妨认真看看官网文档,对于web架构的理解有很大帮助.</p>
 <a id="more"></a>
 <h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>首先,我的环境是ubuntu 16.04,用anaconda来管理包,一句命令”conda install django”就帮我安装了.<br>anaconda3应该都是用django 2.0吧,2.0有很多功能和1.x不同了,例如,urlpatterns用的是path和include,include在1.x是没有的.<br><img src="/images/post/django/Picture1.png" alt="python3"><br><img src="/images/post/django/Picture2.png" alt="django_version"><br>然后在相应的目录下用django-admin.py来创建目录.<br><img src="/images/post/django/Picture3.png" alt="create_project"></p>
+<h2 id="virtualenv"><a href="#virtualenv" class="headerlink" title="virtualenv"></a>virtualenv</h2><p>virtualenv可以创建独立的python环境,避免多项目需求不同版本包而产生包冲突的问题.</p>
+<blockquote>
+<p>安装</p>
+</blockquote>
+<p>安装其实好简单,只要一个命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install virtualenv</span><br></pre></td></tr></table></figure></p>
+<p>这样安装的版本多数是符合要求.<br>然后在所需求的目录下巧创建环境命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ virtualenv --python=python3.5 envName</span><br></pre></td></tr></table></figure></p>
+<p>其中–python=python3.5这个参数可以忽略,那样就默认按’/usr/bin/python’来创建python环境.<br>用这个参数可以指定python版本,前提’/usr/bin’里有这个python版本.</p>
+<blockquote>
+<p>激活</p>
+</blockquote>
+<p>用一个命令可以将创建的env作为系统默认python环境(就是在path环境变量里覆盖了).<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ virtualenv ENV</span><br></pre></td></tr></table></figure></p>
+<p>当然,相反可以用如下命令来取消:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ deactivate</span><br></pre></td></tr></table></figure></p>
 <p>……</p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>由于时间原因,我先将效果图发出来.等有时间了,我再补回中间内容.<br>还是那句,什么教程书都是浮云,官网才是权威!(虽然官网好多都是英文)<br>setting.py文件<br><img src="/images/post/django/Selection_001.png" alt="settingFile"><br>urls.py文件<br><img src="/images/post/django/Selection_002.png" alt="urlsFile"><br>创建migration的py文件<br><img src="/images/post/django/Selection_003.png" alt="create_migration_file"><br>index.html模板文件,留意这个文件的文件夹层级,为什么要这样架构,我还是不太明白.<br><img src="/images/post/django/Selection_004.png" alt="index_template_file"><br>和数据库连接的模型models.py文件<br><img src="/images/post/django/Selection_005.png" alt="models_file"><br>app模块的urls.py文件<br><img src="/images/post/django/Selection_006.png" alt="app_url_file"><br>views.py视图文件<br><img src="/images/post/django/Selection_007.png" alt="app_views_file"><br>页面效果图<br><img src="/images/post/django/Picture4.png" alt="page1"><br><img src="/images/post/django/Picture5.png" alt="page2"><br>至于数据库,用sqlite3命令来查看数据库<br><img src="/images/post/django/Picture6.png" alt="sqlite"></p>
 
@@ -585,7 +597,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记"><span class="nav-number">2.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">2.2.</span> <span class="nav-text">效果</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记"><span class="nav-number">2.</span> <span class="nav-text">笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#virtualenv"><span class="nav-number">2.2.</span> <span class="nav-text">virtualenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">2.3.</span> <span class="nav-text">效果</span></a></li></ol></li></ol></div>
             
 
           </div>
