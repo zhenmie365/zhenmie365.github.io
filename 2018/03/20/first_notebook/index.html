@@ -79,19 +79,21 @@
 
 
 
-<meta name="description" content="My first notebook">
+<meta name="description" content="My first notebook打算将jupyter notebook直接导入到blog里,发现没有github的效果,搜了搜,发现git上面是天然支持notebook展示.心灰意冷下,找了其它几种方法来展示notebook.">
 <meta name="keywords" content="python,notebook">
 <meta property="og:type" content="article">
 <meta property="og:title" content="测试第一个导入的notebook">
 <meta property="og:url" content="http://yoursite.com/2018/03/20/first_notebook/index.html">
 <meta property="og:site_name" content="Zhenmie&#39;s blog">
-<meta property="og:description" content="My first notebook">
+<meta property="og:description" content="My first notebook打算将jupyter notebook直接导入到blog里,发现没有github的效果,搜了搜,发现git上面是天然支持notebook展示.心灰意冷下,找了其它几种方法来展示notebook.">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/images/post/firstNotebook/first_notebook.ipynb">
-<meta property="og:updated_time" content="2018-03-20T03:06:11.951Z">
+<meta property="og:image" content="http://yoursite.com/images/post/firstNotebook/output_4_0.png">
+<meta property="og:image" content="http://yoursite.com/images/post/firstNotebook/output_6_1.png">
+<meta property="og:updated_time" content="2018-03-20T03:37:57.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="测试第一个导入的notebook">
-<meta name="twitter:description" content="My first notebook">
+<meta name="twitter:description" content="My first notebook打算将jupyter notebook直接导入到blog里,发现没有github的效果,搜了搜,发现git上面是天然支持notebook展示.心灰意冷下,找了其它几种方法来展示notebook.">
 <meta name="twitter:image" content="http://yoursite.com/images/post/firstNotebook/first_notebook.ipynb">
 
 
@@ -284,7 +286,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-20T11:06:11+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-20T11:37:57+08:00">
                 2018-03-20
               </time>
             
@@ -377,8 +379,19 @@
       
 
       
-        <h1 id="My-first-notebook"><a href="#My-first-notebook" class="headerlink" title="My first notebook"></a>My first notebook</h1><a id="more"></a>
-<h2 id="notebook"><a href="#notebook" class="headerlink" title="notebook"></a>notebook</h2><p><img src="/images/post/firstNotebook/first_notebook.ipynb" alt="notebook"></p>
+        <h1 id="My-first-notebook"><a href="#My-first-notebook" class="headerlink" title="My first notebook"></a>My first notebook</h1><p>打算将jupyter notebook直接导入到blog里,发现没有github的效果,搜了搜,发现git上面是天然支持notebook展示.<br>心灰意冷下,找了其它几种方法来展示notebook.</p>
+<a id="more"></a>
+<h2 id="直接导入本地ipynb"><a href="#直接导入本地ipynb" class="headerlink" title="直接导入本地ipynb"></a>直接导入本地ipynb</h2><p><strong>是不行的!</strong><br>如下面的连接:<br><img src="/images/post/firstNotebook/first_notebook.ipynb" alt="notebook"></p>
+<h2 id="导入-md文件"><a href="#导入-md文件" class="headerlink" title="导入.md文件"></a>导入.md文件</h2><p>可以先在本地jupyter notebook上导出你所需展示的notebook为md格式.会导出一个zip文档.<br>里面有一个.md文件和所需展示的图片.注意,.md文档里的图片路径是同级文件夹路径,所以这是需要自己修改正确.</p>
+<p>如下面就是所要展示的效果:</p>
+<h3 id="import-packege"><a href="#import-packege" class="headerlink" title="import packege"></a>import packege</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> Image</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<h4 id="display-image"><a href="#display-image" class="headerlink" title="display image"></a>display image</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Image(filename=<span class="string">'./img/ensamble_model.png'</span>, width=<span class="number">500</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/firstNotebook/output_4_0.png" alt="png"></p>
+<h4 id="code-model"><a href="#code-model" class="headerlink" title="code model"></a>code model</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">20</span>)</span><br><span class="line">y = x ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line">plt.plot(x, y)</span><br></pre></td></tr></table></figure>
+<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f409894ed30&gt;]
+</code></pre><p><img src="/images/post/firstNotebook/output_6_1.png" alt="png"></p>
+<h2 id="git展示"><a href="#git展示" class="headerlink" title="git展示"></a>git展示</h2><p>好像我这样直接放在github上,给个链接,然后上去github上看吧,挺好的!<br><a href="https://github.com/zhenmie365/zhenmie365.github.io/blob/master/images/post/firstNotebook/first_notebook.ipynb" target="_blank" rel="noopener">notebook_in_git</a></p>
+<h2 id="html文件"><a href="#html文件" class="headerlink" title="html文件"></a>html文件</h2><p>从本地notebook中导出.html格式文件.然后…就没有然后,我都不清楚怎样导入到.md,有点本末倒置了!还是直接双击html文件用浏览器看吧!</p>
 
       
     </div>
@@ -570,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#My-first-notebook"><span class="nav-number">1.</span> <span class="nav-text">My first notebook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#notebook"><span class="nav-number">1.1.</span> <span class="nav-text">notebook</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#My-first-notebook"><span class="nav-number">1.</span> <span class="nav-text">My first notebook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接导入本地ipynb"><span class="nav-number">1.1.</span> <span class="nav-text">直接导入本地ipynb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入-md文件"><span class="nav-number">1.2.</span> <span class="nav-text">导入.md文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#import-packege"><span class="nav-number">1.2.1.</span> <span class="nav-text">import packege</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#display-image"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">display image</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#code-model"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">code model</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git展示"><span class="nav-number">1.3.</span> <span class="nav-text">git展示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#html文件"><span class="nav-number">1.4.</span> <span class="nav-text">html文件</span></a></li></ol></li></ol></div>
             
 
           </div>
