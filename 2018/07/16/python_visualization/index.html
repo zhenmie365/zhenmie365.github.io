@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,visualization," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述近来就公司工作要求和个人兴趣，做了一些数据可视化的实践。虽然python提供了seaborn和matplotlib两个超级好用大包给我们可以好容易实现可视化，但还是有些细节要实践才明白。">
+<meta name="keywords" content="python,visualization">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python可视化的一些细节">
+<meta property="og:url" content="http://yoursite.com/2018/07/16/python_visualization/index.html">
+<meta property="og:site_name" content="Zhenmie&#39;s blog">
+<meta property="og:description" content="概述近来就公司工作要求和个人兴趣，做了一些数据可视化的实践。虽然python提供了seaborn和matplotlib两个超级好用大包给我们可以好容易实现可视化，但还是有些细节要实践才明白。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/images/post/python_visualization/pic1.png">
+<meta property="og:image" content="http://yoursite.com/images/post/python_visualization/error.png">
+<meta property="og:image" content="http://yoursite.com/images/post/python_visualization/sphx_glr_colormap_reference_001.png">
+<meta property="og:image" content="http://yoursite.com/images/post/python_visualization/sphx_glr_colormap_reference_002.png">
+<meta property="og:image" content="http://yoursite.com/images/post/python_visualization/sphx_glr_colormap_reference_003.png">
+<meta property="og:image" content="http://yoursite.com/images/post/python_visualization/sphx_glr_colormap_reference_004.png">
+<meta property="og:image" content="http://yoursite.com/images/post/python_visualization/sphx_glr_colormap_reference_005.png">
+<meta property="og:image" content="http://yoursite.com/images/post/python_visualization/sphx_glr_colormap_reference_006.png">
+<meta property="og:updated_time" content="2018-07-16T04:13:37.785Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python可视化的一些细节">
+<meta name="twitter:description" content="概述近来就公司工作要求和个人兴趣，做了一些数据可视化的实践。虽然python提供了seaborn和matplotlib两个超级好用大包给我们可以好容易实现可视化，但还是有些细节要实践才明白。">
+<meta name="twitter:image" content="http://yoursite.com/images/post/python_visualization/pic1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/16/python_visualization/"/>
+
+
+
+
+
+  <title>python可视化的一些细节 | Zhenmie's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhenmie's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">跑啊跑啊,为了追上那个曾经被寄予厚望的自己</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/16/python_visualization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Green Zhenmie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar/74766_729230_992060.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhenmie's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python可视化的一些细节</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-16T12:13:37+08:00">
+                2018-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/" itemprop="url" rel="index">
+                    <span itemprop="name">working</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/working/python/visualization/" itemprop="url" rel="index">
+                    <span itemprop="name">visualization</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/07/16/python_visualization/" class="leancloud_visitors" data-flag-title="python可视化的一些细节">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>近来就公司工作要求和个人兴趣，做了一些数据可视化的实践。<br>虽然python提供了seaborn和matplotlib两个超级好用大包给我们可以好容易实现可视化，但还是有些细节要实践才明白。</p>
+<a id="more"></a>
+<h1 id="中文处理"><a href="#中文处理" class="headerlink" title="中文处理"></a>中文处理</h1><p>首先是中文处理！我开发的环境是ubuntu 17.10，有一次尝试在x轴打印中文标注，发现是一个正方形输出（通俗d就是乱码），<br>一时疑惑，好似以前14.04的时候未遇过，怀疑是更新了版本的问题，但上网搜了搜，发现是需要引入字符文件，我觉得原理就是导入一些字符文件到matplotlib中，<br>让它来做字体处理。好吧，这里就展示解决过程出来吧。python 3.6，matplotlib 2.0.2，seaborn 0.8</p>
+<blockquote>
+<p>首先，找出系统的现存的字体文件</p>
+</blockquote>
+<p>用命令fc-list：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$fc-list :lang-zh</span><br></pre></td></tr></table></figure></p>
+<p>就会列出很多字体处理文件，我用的是wqy-microhei.ttc文件</p>
+<blockquote>
+<p>然后在python使用plt方法前设置用这个字体文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myFont_url = self.base_path + &quot;/wqy-microhei.ttc&quot;</span><br><span class="line">myFont = matplotlib.font_manager.FontProperties(fname=myFont_url)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>根据实际情况替换文件路径前面的self.base_path</p>
+<blockquote>
+<p>最后在需要用中文的标注里（如ylabel，title等），添加参数fontproperties设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.ylabel(&apos;影片数量&apos;, fontproperties=myFont)</span><br><span class="line">plt.xlabel(&quot;出片地区&quot;, fontproperties=myFont)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>效果如下：<br><img src="/images/post/python_visualization/pic1.png" alt="china_label_in_plt"></p>
+<blockquote>
+<p>windows都有这些ttc字体处理文件，但如果用在linux系统上是不行，试验过。还有为什么要用windows做python开发……</p>
+</blockquote>
+<h1 id="xlabel的间距"><a href="#xlabel的间距" class="headerlink" title="xlabel的间距"></a>xlabel的间距</h1><p>我在处理历届世界杯数据时，遇到一个好怪的可视化问题，就是在1942和1946两年，因为世界大战的原因，这两届的世界杯是没有举行。<br>就是说这两年是没有数据展示，所以需要在x轴插入年份标注时就会在1938和1950之间出现一个大大的间隔，以下用matplotlib做的图：<br><img src="/images/post/python_visualization/error.png" alt="gep_error"><br>哈哈，这个很搞笑，如果直接用代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cups[&quot;Year1&quot;] = cups[&quot;Year&quot;].astype(str)</span><br><span class="line">plt.xticks(cups[&quot;Year1&quot;].unique())</span><br></pre></td></tr></table></figure></p>
+<p>就会跑出底层str不能做数字比较的错误。如果用官方文档推荐的中文处理方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xA_int = [1930, 1934, 1938, 1950, 1954, 1958, 1962, 1966, 1970, 1974, 1978, 1982, 1986, 1990, 1994, 1998, 2002, 2006, 2010, 2014]</span><br><span class="line">xA = [&quot;1930&quot;, &quot;1934&quot;, &quot;1938&quot;, &quot;1950&quot;, &quot;1954&quot;, &quot;1958&quot;, &quot;1962&quot;, &quot;1966&quot;, &quot;1970&quot;, &quot;1974&quot;, &quot;1978&quot;, &quot;1982&quot;, &quot;1986&quot;, &quot;1990&quot;, &quot;1994&quot;, &quot;1998&quot;, &quot;2002&quot;, &quot;2006&quot;, &quot;2010&quot;, &quot;2014&quot;]</span><br><span class="line">ax.set_xticks(xA_int, xA)</span><br></pre></td></tr></table></figure></p>
+<p>还是一样有一个大大的间隔，我感觉是matplotlib的标注底层机制决定这样。<br>但这个是很特别，我是做scatter是才出现这个问题，如果做柱状图（barplot）就不会出现这个问题。<br>但还是有解决方法，就是用seaborn啦。听说seaborn是基于matplotlib，但可以做出更炫的图来。<br>用seaborn的boxplot和violinplot等都不会出现这个问题。</p>
+<h1 id="色谱"><a href="#色谱" class="headerlink" title="色谱"></a>色谱</h1><p>在用到plt的时候会有这么一个输入参数palette，传入的都是一些好奇怪的名称，上官方文档搜左搜，原来可以用这个来选择一些色谱（我唔知系唔系这个称呼）<br>官网相关联地址不记得了，但这里就列出关联色谱：<br><img src="/images/post/python_visualization/sphx_glr_colormap_reference_001.png" alt="colormap1"><br><img src="/images/post/python_visualization/sphx_glr_colormap_reference_002.png" alt="colormap2"><br><img src="/images/post/python_visualization/sphx_glr_colormap_reference_003.png" alt="colormap3"><br><img src="/images/post/python_visualization/sphx_glr_colormap_reference_004.png" alt="colormap4"><br><img src="/images/post/python_visualization/sphx_glr_colormap_reference_005.png" alt="colormap5"><br><img src="/images/post/python_visualization/sphx_glr_colormap_reference_006.png" alt="colormap6"></p>
+<p>例子代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ax = sns.barplot(y=h_att[&apos;mt&apos;], x=h_att[&apos;Attendance&apos;], palette=&apos;gist_rainbow&apos;,</span><br><span class="line">                 linewidth=1, edgecolor=&quot;k&quot;*len(h_att))</span><br></pre></td></tr></table></figure></p>
+<h1 id="词云"><a href="#词云" class="headerlink" title="词云"></a>词云</h1><p>竟然用anaconda安装wordcloud出现问题，发现是要设置channel，要用以下的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install -c conda-forge wordcloud</span><br></pre></td></tr></table></figure></p>
+<h1 id="Dataframe"><a href="#Dataframe" class="headerlink" title="Dataframe"></a>Dataframe</h1><p>这个真的非常好用，不过我都是小数据处理，不清楚如果是处理成G以上的数据性能会怎样<br>下面展示一些它的用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">cups[&apos;Winner&apos;] = cups[&quot;Winner&quot;].replace(&quot;Germany FR&quot;,&quot;Germany&quot;)</span><br><span class="line"></span><br><span class="line"># 以下效果一样，感觉第二行效率会好点。</span><br><span class="line"># att = matchs.groupby(&apos;Year&apos;)[&apos;Attendance&apos;].sum().reset_index()</span><br><span class="line">att = matchs[[&apos;Year&apos;, &apos;Attendance&apos;]].groupby(&quot;Year&quot;, as_index=False).sum()</span><br><span class="line"></span><br><span class="line"># 将两个ＤataFrame垂直结合</span><br><span class="line">plcs = pd.concat([thrd, frth], axis=0)</span><br><span class="line"></span><br><span class="line"># 左联？</span><br><span class="line">c12 = c1.merge(c2, left_on=&quot;Winner&quot;, right_on=&apos;Winner&apos;, how=&apos;left&apos;)</span><br><span class="line"></span><br><span class="line">def lable(matches):</span><br><span class="line">    if matches[&apos;Home Team Goals&apos;] &gt; matches[&apos;Away Team Goals&apos;]:</span><br><span class="line">        return &apos;Home team win&apos;</span><br><span class="line">    if matches[&apos;Away Team Goals&apos;] &gt; matches[&apos;Home Team Goals&apos;]:</span><br><span class="line">        return &apos;Away Team win&apos;</span><br><span class="line">    if matches[&apos;Home Team Goals&apos;] == matches[&apos;Away Team Goals&apos;]:</span><br><span class="line">        return &apos;DRAW&apos;</span><br><span class="line"></span><br><span class="line">matches[&quot;outcome&quot;] = matches.apply(lambda matches: lable(matches), axis=1)</span><br></pre></td></tr></table></figure></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>可视化实践代码都放在以下地址：<br><a href="https://github.com/zhenmie365/pythonStudy/blob/master/examples/data_extraction/worldcup.py" target="_blank" rel="noopener">visualizaion_code</a><br>当然，如果有时间，最好还是做一个notebook出来。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/visualization/" rel="tag"># visualization</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/13/1806_cert9_db/" rel="next" title="firefox证书导入问题">
+                <i class="fa fa-chevron-left"></i> firefox证书导入问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" style="max-width:180px;"
+                src="/images/avatar/74766_729230_992060.gif"
+                alt="Green Zhenmie" />
+            
+              <p class="site-author-name" itemprop="name">Green Zhenmie</p>
+              <p class="site-description motion-element" itemprop="description">以女人为本</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhenmie365" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中文处理"><span class="nav-number">2.</span> <span class="nav-text">中文处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xlabel的间距"><span class="nav-number">3.</span> <span class="nav-text">xlabel的间距</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#色谱"><span class="nav-number">4.</span> <span class="nav-text">色谱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#词云"><span class="nav-number">5.</span> <span class="nav-text">词云</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dataframe"><span class="nav-number">6.</span> <span class="nav-text">Dataframe</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">7.</span> <span class="nav-text">附录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Green Zhenmie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2155198"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("HTR7GGc4xSkCr6XLLE5a92lr-gzGzoHsz", "aQpNYJbxtzgycXwTaNmtxrFV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
